@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import M from "materialize-css";
 
-const Sort = () => {
+const Sort = ({ value, changedField, changedDir, activeDir }) => {
   useEffect(() => {
     let selects = document.querySelectorAll("select");
 
@@ -11,23 +11,33 @@ const Sort = () => {
   return (
     <div className="row" style={{ alignItems: "center", display: "flex" }}>
       <div className="input-field col s11">
-        <select defaultValue={0}>
+        <select value={value} onChange={e => changedField(e.target.value)}>
           <option value="0" disabled>
             Sort By
           </option>
-          <option value="1">Имя Пользователя</option>
-          <option value="2">Email</option>
-          <option value="3">Status</option>
+          <option value="username">Имя Пользователя</option>
+          <option value="email">Email</option>
+          <option value="status">Status</option>
         </select>
         <label>Materialize Select</label>
       </div>
       <div className="col s1">
-        <a class="waves-effect waves-light btn btn-flat">
-          <i class="material-icons">arrow_upward</i>
-        </a>
-        <a class="waves-effect waves-light btn btn-flat">
-          <i class="material-icons">arrow_downward</i>
-        </a>
+        <button
+          className={`waves-effect waves-light btn ${
+            activeDir === "asc" ? null : "btn-flat"
+          }`}
+          onClick={() => changedDir("asc")}
+        >
+          <i className="material-icons">arrow_upward</i>
+        </button>
+        <button
+          className={`waves-effect waves-light btn ${
+            activeDir === "desc" ? null : "btn-flat"
+          }`}
+          onClick={() => changedDir("desc")}
+        >
+          <i className="material-icons">arrow_downward</i>
+        </button>
       </div>
     </div>
   );

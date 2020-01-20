@@ -1,11 +1,25 @@
 import { tasksTypes } from "."
 
+if (!localStorage.getItem('sortField')) {
+  localStorage.setItem('sortField', "name")
+}
+
+if (!localStorage.getItem('sortDir')) {
+  localStorage.setItem('sortDir', "asc")
+}
+
+const sortField = localStorage.getItem('sortField')
+const sortDirection = localStorage.getItem('sortDir')
+
 const initialState = {
   isLoading: false,
   error: '',
   tasks: [],
   totalCount: 0,
-  activePagination: 1
+  activePagination: 1,
+  sortField,
+  sortDirection,
+  message: ''
 }
 
 const tasksReducer = (state = initialState, action) => {
@@ -38,6 +52,21 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         activePagination: action.payload
+      }
+    case tasksTypes.TASKS_SORT_CHANGE:
+      return {
+        ...state,
+        sortField: action.payload
+      }
+    case tasksTypes.TASKS_SORTDIRECTION_CHANGE:
+      return {
+        ...state,
+        sortDirection: action.payload
+      }
+    case tasksTypes.TASKS_ADD_MESSAGE:
+      return {
+        ...state,
+        message: action.payload
       }
     default:
       return state

@@ -3,7 +3,6 @@ import * as tasksActions from './actions'
 import * as tasksOptions from './options'
 import tasksReducer from './reducer'
 
-
 export {
   tasksTypes,
   tasksReducer,

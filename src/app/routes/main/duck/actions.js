@@ -17,12 +17,30 @@ const tasksFetchError = (err) => {
 }
 
 const tasksPaginationChange = (number) => {
+  localStorage.setItem('page', number)
   return { type: tasksTypes.TASKS_PAGINATION_CHANGE, payload: number }
+}
+
+const tasksSortChange = (sort) => {
+  localStorage.setItem('sortField', sort)
+  return { type: tasksTypes.TASKS_SORT_CHANGE, payload: sort }
+}
+
+const tasksSortDirectionChange = (sortDir) => {
+  localStorage.setItem('sortDir', sortDir)
+  return { type: tasksTypes.TASKS_SORTDIRECTION_CHANGE, payload: sortDir }
+}
+
+const tasksAddMessage = (message) => {
+  return { type: tasksTypes.TASKS_ADD_MESSAGE, payload: message }
 }
 
 export {
   tasksFetchStart,
   tasksFetchSuccess,
   tasksFetchError,
-  tasksPaginationChange
+  tasksPaginationChange,
+  tasksSortChange,
+  tasksSortDirectionChange,
+  tasksAddMessage
 }

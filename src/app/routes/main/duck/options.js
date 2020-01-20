@@ -1,12 +1,12 @@
 import apiInstance from "../../../../instances/api"
-import { tasksActions } from "."
+import { tasksActions, tasksTypes } from "."
 
-const defaultTasksFetchParams = {
-  page: 1
-}
-
-const tasksFetch = (params = defaultTasksFetchParams) => {
-  console.log(params);
+const tasksFetch = () => {
+  const params = {
+    page: localStorage.getItem('page'),
+    sortField: localStorage.getItem('sortField'),
+    sortDirection: localStorage.getItem('sortDir')
+  }
 
   return dispatch => {
     dispatch(tasksActions.tasksFetchStart())
@@ -14,7 +14,6 @@ const tasksFetch = (params = defaultTasksFetchParams) => {
       params
     }).then((res) => {
       dispatch(tasksActions.tasksFetchSuccess(res.data.message.tasks, +res.data.message.total_task_count))
-      dispatch(tasksActions.tasksPaginationChange(params.page))
     }).catch(err => {
       dispatch(tasksActions.tasksFetchError(err.message))
     })

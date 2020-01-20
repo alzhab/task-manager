@@ -5,12 +5,18 @@ const apiInstance = Axios.create({
 
 })
 
-apiInstance.interceptors.request.use((config) => ({
-  ...config,
-  params: {
-    developer: 'abdalzb',
-    ...config.params
-  },
-}))
+apiInstance.interceptors.request.use((config) => {
+
+  return {
+    ...config,
+    params: {
+      developer: 'abdalz',
+      ...config.params
+    },
+    data: {
+      ...config.data
+    }
+  }
+})
 
 export default apiInstance
