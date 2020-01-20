@@ -1,6 +1,9 @@
 import React from "react";
 
-const Pagination = () => {
+const Pagination = ({ changePagination, totalCount, activePagination }) => {
+  let paginationNumber = totalCount / 3;
+  paginationNumber = Math.ceil(paginationNumber);
+
   return (
     <ul className="pagination center">
       <li className="disabled">
@@ -8,21 +11,15 @@ const Pagination = () => {
           <i className="material-icons">chevron_left</i>
         </a>
       </li>
-      <li className="active">
-        <a href="#!">1</a>
-      </li>
-      <li className="waves-effect">
-        <a href="#!">2</a>
-      </li>
-      <li className="waves-effect">
-        <a href="#!">3</a>
-      </li>
-      <li className="waves-effect">
-        <a href="#!">4</a>
-      </li>
-      <li className="waves-effect">
-        <a href="#!">5</a>
-      </li>
+      {Array.from({ length: paginationNumber }, (v, i) => i + 1).map(number => (
+        <li
+          key={number}
+          onClick={() => changePagination(number)}
+          className={activePagination === number ? "active" : null}
+        >
+          <a href="#!">{number}</a>
+        </li>
+      ))}
       <li className="waves-effect">
         <a href="#!">
           <i className="material-icons">chevron_right</i>
